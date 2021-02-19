@@ -4,34 +4,39 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/style.css" />
-    <title>Web Chat Application</title>
+    <link rel="stylesheet" href="./css/style.css"/>
+    <title>Login To Chat Room</title>
   </head>
-  <body class="chat">
-    <div class="chat__users-part">
-      <h1>Users</h1>
-      <hr />
-      <ul class="chat__users"></ul>
-    </div>
+  <body class="login">
+    <div class="login__box">
+      <h3>Welcome to Nima chat app</h3>
 
-    <div class="chat__part">
-      <ul id="messages"></ul>
-
-      <form id="message-form">
-        <input
-          type="text"
-          name="message"
-          placeholder="enter a message here..."
-          autofocus
-          autocomplete="off"
-        />
-        <button type="submit" id="send-message">send</button>
-        <button type="button" id="send-location">Send location</button>
+      <form action="./chat.html" class="login__form">
+        <div class="login__form-field">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            placeholder="please enter your username..."
+            name="username"
+            id="username"
+            autofocus
+            autocomplete="off"
+          />
+        </div>
+        <div class="login__form-field">
+          <label for="room">Room:</label>
+          <input
+            type="text"
+            placeholder="please enter your room..."
+            name="room"
+            id="room"
+            autocomplete="off"
+          />
+        </div>
+        <div class="login__form-field">
+          <button>Join</button>
+        </div>
       </form>
     </div>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="./js/lib//jquery-3.5.1.min.js"></script>
-    <script src="./js/index.js"></script>
   </body>
 </html>
