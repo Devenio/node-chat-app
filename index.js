@@ -6,18 +6,20 @@ const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const { generateMessage, generateLocationMessage } = require("./utils/message");
 const validation = require("./utils/validation");
+const Users = require("./utils/users");
 
 // Define const variables
 const publicPath = path.join(__dirname, "/public");
 const port = process.env.PORT || 3000;
+const users = new Users();
 
 io.on("connection", (socket) => {
   console.log("New user connected.");
   
   socket.on("createLocation", (coords) => {
-    io.emit(
+    io.to(users.getUser(socket.id).room).emit(
       "newLocationMessage",
-      generateLocationMessage("Admin", coords.latitude, coords.longitude)
+      generateLocationMessage(users.getUser(socket.id).username, coords.latitude, coords.longitude)
       );
     });
 
@@ -27,29 +29,35 @@ io.on("connection", (socket) => {
       callback("invalid username or room!");
       return;
     }
-    socket.join(params.room)
+    socket.join(params.room);
+
+    users.removeUser(socket.id);
+    users.addUser(socket.id, params.username, params.room);
+
+    io.to(params.room).emit("updateUsersList", users.getUsersList(params.room));
     socket.emit("newMessage", generateMessage("Admin", "Welcome to this group"));
     socket.broadcast.to(params.room).emit(
       "newMessage",
       generateMessage("Admin", `${params.username} joined room`)
     );
+
+    // Handle Messages
     socket.on("createMessage", (message) => {
       console.log("createMessage: ", message);
   
-      io.to(params.room).emit("newMessage", generateMessage(message.from, message.text));
+      io.to(params.room).emit("newMessage", generateMessage(users.getUser(message.from).username, message.text));
     });
 
     callback()
   })
 
-  // socket.on("createMessage", (message) => {
-  //   console.log("createMessage: ", message);
-
-  //   io.emit("newMessage", generateMessage(message.from, message.text));
-  // });
-
-  io.on("disconnect", () => {
-    console.log("user was disconnected.");
+  socket.on("disconnect", () => {
+    console.log("disconnected")
+    let user = users.removeUser(socket.id);
+    if(user) {
+      io.to(user.room).emit("updateUsersList", users.getUsersList(user.room));
+      io.to(user.room).emit("newMessage", generateMessage("Admin", `${user.username} has left the room`))
+    }
   });
 });
 app.use(express.static(publicPath));
