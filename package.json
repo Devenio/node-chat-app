@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha */**.test.js",
     "testWatch": "nodemon -exec \"npm test\"",
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
