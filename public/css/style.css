@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 hr {
   background: #000;
@@ -23,7 +24,7 @@ hr {
 /* Design chat users part */
 .chat__users-part {
   background-image: linear-gradient(#4e4e50, #1a1a1d);
-  flex-grow: 3;
+  width: 30%;
 }
 .chat__users-part h1 {
   color: #ccc;
@@ -45,13 +46,14 @@ hr {
   font-size: 1.25rem;
 }
 
+
 /* Design chatting part */
 .chat__part {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   flex-direction: column;
-  flex-grow: 9;
+  width: 70%;
 }
 .chat__part .messages-box {
   height: 100%;
@@ -84,7 +86,7 @@ hr {
   border: 2px solid #136bbe;
 }
 .chat__part #message-form button {
-  flex-grow: 1;
+  flex-grow: 3;
   height: 80%;
   border: 1px solid #9e9e9e;
   cursor: pointer;
@@ -121,7 +123,6 @@ hr {
   flex-direction: column;
   padding: 15px;
   background-image: linear-gradient(45deg, #ccc, #fff);
-
 }
 .login__box h3 {
   flex-grow: 1;
@@ -132,7 +133,8 @@ hr {
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+  Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 .login__box .login__form .login__form-field {
   display: flex;
@@ -146,10 +148,8 @@ hr {
   padding: 10px;
   margin-top: 10px;
   border: 1px solid #fff;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.15), 
-              0 2px 2px rgba(0,0,0,0.15), 
-              0 4px 4px rgba(0,0,0,0.15), 
-              0 8px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 2px rgba(0, 0, 0, 0.15),
+    0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.15);
 }
 .login__box .login__form .login__form-field input:focus {
   border: 1px solid #4891e6;
@@ -165,4 +165,40 @@ hr {
 }
 .login__box .login__form .login__form-field button:hover {
   background-image: linear-gradient(45deg, #2058c0, #1fa0d3);
+}
+
+i.icon {
+  cursor: pointer;
+  display: none;
+}
+i.times-icon {
+  display: none;
+}
+
+/* Responsive page */
+@media screen and (max-width: 786px) {
+  .chat__users-part {
+    position: absolute;
+    width: 100vw;
+    left: -100%;
+    transition: 300ms;
+    z-index: 30;
+  }
+  .chat__part {
+    width: 100%; 
+  }
+  i.bars-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: block;
+    z-index: 40;
+  }
+  i.times-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 40;
+    display: none;
+  }
 }

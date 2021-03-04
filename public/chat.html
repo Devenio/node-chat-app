@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+      integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+      crossorigin="anonymous"
+    />
     <title>Web Chat Application</title>
   </head>
   <body class="chat">
@@ -28,9 +34,12 @@
           autocomplete="off"
         />
         <button type="submit" id="send-message">send</button>
-        <button type="button" id="send-location">Send location</button>
+        <!-- <button type="button" id="send-location">Send location</button> -->
       </form>
     </div>
+    
+    <i class="fas fa-bars fa-2x icon bars-icon"></i>
+    <i class="fas fa-times fa-2x icon times-icon"></i>
 
     <script type="text/template" id="message-template">
       <li class="message">
@@ -68,5 +77,24 @@
     <script src="./js/lib/moment.js"></script>
     <script src="./js/lib/mustache.js"></script>
     <script src="./js/lib/deparam.js"></script>
+    
+    <script type="text/javascript">
+      const barsIcon = document.querySelector(".bars-icon");
+      const timesIcon = document.querySelector(".times-icon");
+      const membersPart = document.querySelector(".chat__users-part");
+
+      barsIcon.addEventListener("click", () => {
+        membersPart.style = "left: 0;"
+
+        barsIcon.style = "display: none;"
+        timesIcon.style = "display: block;"
+      });
+      timesIcon.addEventListener("click", () => {
+        membersPart.style = "left: -100%;"
+
+        barsIcon.style = "display: block;"
+        timesIcon.style = "display: none;"
+      })
+    </script>
   </body>
 </html>
